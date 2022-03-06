@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"example.com/go-rest-api/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
@@ -28,5 +29,9 @@ func ConnectDb() {
 	log.Println("Connected to the database successfully")
 	db.Logger = logger.Default.LogMode(logger.Info)
 	log.Println("Running Migrations")
+	db.AutoMigrate(&models.User{}, &models.Product{}, &models.Order{})
+
+	// Add Migrations
+	Database = DbInstance{Db: db}
 
 }
